@@ -1,0 +1,7 @@
+.form-container {
+    width: 1000px; /* Set your desired width */
+    height: 350px; /* Set your desired height */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+  }

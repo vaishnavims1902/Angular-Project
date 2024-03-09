@@ -1,0 +1,217 @@
+<!-- <section class="preloader">
+    <div class="spinner">
+        <span class="sk-inner-circle"></span>
+    </div>
+</section> -->
+
+
+    <app-nav></app-nav>
+    <section class="front-product">
+        <div class="container-fluid p-0">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 col-12">
+                    <img src="assets/images/retail-shop-owner-mask-social-distancing-shopping.jpg" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-6 col-12">
+                    <div class="px-5 py-5 py-lg-0">
+                        
+                        <h2 class="mb-4"><span>Welcome</span> To HR Recruitment</h2>
+
+                        <p class="lead mb-4">We're leaders in</p>
+                        <h5 style="color: coral;"> Creative Digital Recruitment</h5>
+ 
+                        <a  class="btn custom-btn" id="openModalBtn1" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            <h3 style="color: darkorange;">Register</h3>
+                            <i class="bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Registration </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="editForm" >
+                    <div class="form-group">
+                        <label for="editName">Profile Photo </label>&nbsp;&nbsp;&nbsp;
+                        <img [src]="url" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="file" [(ngModel)]="inputObj.profilePic" id="profilePic" name="profilePic" (change)="onselectFile($event)" required /><br><br>
+                        <!-- <input type="text" [(ngModel)]="inputObj.imgurl" name="imgurl" class="form-control" id="imgurl" placeholder="Please paste the image URL uploaded to Google Drive here.">
+                     -->
+                    </div>
+                    <div class="form-group">
+                        <label for="editName">Name:</label>
+                        <input type="text" [(ngModel)]="inputObj.name" #name="ngModel" name="name" class="form-control" id="userName" placeholder="Enter your name" required [pattern]="namePattern">
+                        <div class="validation-error" *ngIf="name.touched || name.dirty">
+                            <div *ngIf="name.errors?.['required']">Name is required</div>
+                            <div *ngIf="name.errors?.['pattern']">Please, Only enter alphabets and Max length must be 20 char.</div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="editName">First Name:</label>
+                        <input type="text" [(ngModel)]="inputObj.name" #name="ngModel" name="name" class="form-control" id="userName" placeholder="Enter your name" required pattern="{{ namePattern }}">
+                        <div class="validation-error" *ngIf="name.touched || name.dirty">
+                            <div *ngIf="name.errors?.['required']">Name is required</div>
+                            <div *ngIf="name.errors?.['pattern'] ">Please, Only enter alphabets and Max length must be 20 char.</div>
+                            <div *ngIf="name.value && name.value.length > 20 ">Max length must be 20 char.</div>
+
+                        </div>
+                    </div> -->
+                    
+                    <div class="form-group">
+                        <label for="editName">Last Name:</label>
+                        <input type="text" [(ngModel)]="inputObj.lname" #lname="ngModel" name="lname" class="form-control" id="userlName" placeholder="Enter your name" required >
+                        <div class="validation-error" *ngIf="lname.touched || lname.dirty">
+                            <div *ngIf="lname.errors?.['required']">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email:</label>
+                        <input type="email" [(ngModel)]="inputObj.email" name="email" class="form-control" id="editEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div>
+                        <label for="slider">Age : {{ inputObj.age }}</label><br>
+                        <input
+                          type="range"
+                          id="age"
+                          name="age"
+                          [(ngModel)]="inputObj.age"
+                          (input)="onSliderChange($event)"
+                          min="1"
+                          max="100"
+                          step="1"
+                        />
+                      </div>
+                      
+                    <div class="form-group">
+                        <label for="editContact">Contact:</label>
+                        <input type="text" [(ngModel)]="inputObj.contact" name="contact" class="form-control" id="contact" placeholder="Enter your Contact" #mobile="ngModel" required [pattern]="phonePattern">
+                        <div class="validation-error" *ngIf="mobile.touched || mobile.dirty">
+                            <div *ngIf="mobile.errors?.['required']">Mobile Number is required</div>
+                            <div *ngIf="mobile.errors?.['pattern']">Please, Enter 10 digit Mobile Number.</div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="editAddress">Address:</label>
+                        <input type="text" [(ngModel)]="inputObj.address" name="address" class="form-control" id="address" placeholder="Enter your Address" required>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="state">State:</label>
+                        <select [(ngModel)]="inputObj.state" name="state" class="form-control" id="state">
+                          <option value="" disabled selected>Select state</option>
+                          <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <label for="addressType">Address Type:</label>
+                        <select [(ngModel)]="inputObj.addressType" name="addressType" class="form-control">
+                            <option value="home">Home</option>
+                            <option value="company">Company</option>
+                        </select>
+                    </div>
+                
+                    <div *ngIf="inputObj.addressType === 'home'">
+                        <div class="form-group">
+                            <label for="address1">Address 1:</label>
+                            <input type="text" [(ngModel)]="inputObj.address.address1" name="address1" class="form-control" id="address1" placeholder="Enter your Address 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address2">Address 2:</label>
+                            <input type="text" [(ngModel)]="inputObj.address.address2" name="address2" class="form-control" id="address2" placeholder="Enter your Address 2" required>
+                        </div>
+                    </div>
+                
+                    <div *ngIf="inputObj.addressType === 'company'">
+                        <div class="form-group">
+                            <label for="companyAddress1">Company Address 1:</label>
+                            <input type="text" [(ngModel)]="inputObj.address.companyAddress1" name="companyAddress1" class="form-control" id="companyAddress1" placeholder="Enter your Company Address 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyAddress2">Company Address 2:</label>
+                            <input type="text" [(ngModel)]="inputObj.address.companyAddress2" name="companyAddress2" class="form-control" id="companyAddress2" placeholder="Enter your Company Address 2" required>
+                        </div>
+                    </div>
+
+                    <mat-form-field class="example-chip-list">
+                        <mat-label>Interest:</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="Fruit selection">
+                            @for (interest of interests; track interest) {
+                              <mat-chip-row (removed)="remove(interest)">
+                                {{interest}}
+                                <button matChipRemove [attr.aria-label]="'remove ' + interest">
+                                  <mat-icon>cancel</mat-icon>
+                                </button>
+                              </mat-chip-row>
+                            }
+                          </mat-chip-grid>
+                          <input placeholder="New Interest" #interestInput [formControl]="interestCtrl"
+                            [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)"/>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            @for (interest of filteredinterest | async; track interest) {
+                              <mat-option [value]="interest">{{interest}}</mat-option>
+                            }
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    <!-- <div class="form-group">
+                        <label for="interest">Interest:</label>
+                        <input type="text" [(ngModel)]="inputObj.interest" name="interest" class="form-control" id="interest" placeholder="Enter your Interest" required>
+                    </div> -->
+                    <!-- Add more fields as needed -->
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" (click)="submitForm()" data-bs-dismiss="modal">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">LOGIN </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" >
+                    
+                    <div class="form-group">
+                        <label for="editEmail">Email:</label>
+                        <input type="email"  [(ngModel)]="userEmail" name="userEmail" class="form-control" id="editEmail" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editContact">Passoword:</label>
+                        <input type="text"  [(ngModel)]="password" name="password" class="form-control" id="contact" placeholder="Enter your Password">
+                    </div>
+                    
+                    <!-- Add more fields as needed -->
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" (click)="onLogin()" data-bs-dismiss="modal">Sign in</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<app-footer></app-footer>
