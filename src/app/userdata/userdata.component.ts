@@ -86,7 +86,7 @@ export class UserdataComponent {
 
     this.filteredinterest = this.interestCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allinterest.slice())),
+      map((interest: string | null) => (interest ? this._filter(interest) : this.allinterest.slice())),
     );
   }
   add(event: MatChipInputEvent): void {
@@ -176,7 +176,7 @@ export class UserdataComponent {
       this.dataservice.updateUserOnServer(this.useremail, this.updatedUserData).subscribe(response => {
         console.log('User updated successfully:', response);
         // Optionally, update the local user data if needed
-       this.inputObj = response;
+       //this.inputObj = response;
        
        
       });
