@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserdetailService {
-  list:any[]=[];
+  inputObj:any={};
   
   private apiUrl = 'http://localhost:3000/users/';
 
@@ -28,14 +28,14 @@ export class UserdetailService {
   getData()
   {
 
-    return this.list;
+    return this.inputObj;
   }
   saveData(input:any)
   {
-    this.list.push(input);
+    this.inputObj=input;
   }
 
   updateUserOnServer(email: any, userData: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl+email, userData);
+    return this.http.put<any>(`http://localhost:3000/users/${email}`, userData);
   }
 }

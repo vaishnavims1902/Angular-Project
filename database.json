@@ -1,24 +1,3 @@
 {
-  "users": [
-    {
-      "id": "5bd8",
-      "profilePic": null,
-      "name": "Vaishnavi",
-      "lname": "Mahale",
-      "email": "vaishnavims1902@gmail.com",
-      "age": 21,
-      "contact": "9373503215",
-      "addressType": "home",
-      "address": {
-        "address1": "At. Post Shirsale BK",
-        "address2": "",
-        "companyAddress1": "",
-        "companyAddress2": ""
-      },
-      "interest": [
-        "Drawing"
-      ],
-      "state": "Maharashtra"
-    }
-  ]
+  "users":[]
 }

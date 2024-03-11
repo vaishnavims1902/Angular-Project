@@ -2,7 +2,7 @@
 <app-nav></app-nav>
 
 <section class="about section-padding">
-    <div class="container" *ngFor="let data of listarray">
+    <div class="container">
         <div class="row">
 
             <div class="col-12 text-center">
@@ -16,11 +16,11 @@
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-youtube-tab" data-bs-toggle="pill" data-bs-target="#pills-youtube" type="button" role="tab" aria-controls="pills-youtube" aria-selected="true" (click)="editData(data)">Edit Profile</button>
+                        <button class="nav-link" id="pills-youtube-tab" data-bs-toggle="pill" data-bs-target="#pills-youtube" type="button" role="tab" aria-controls="pills-youtube" aria-selected="true" (click)="editData(inputObj)">Edit Profile</button>
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-skill" type="button" role="tab" aria-controls="pills-skill" aria-selected="false" (click)="editData(data)">Edit Profile Photo</button>
+                        <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-skill" type="button" role="tab" aria-controls="pills-skill" aria-selected="false" (click)="editData(inputObj)">Edit Profile Photo</button>
                     </li>
                 </ul>
             </div>
@@ -31,17 +31,17 @@
 
                         <div class="row">
                             <div class="col-lg-5 col-8">
-                                <img src="{{data.profilePic}}" height="350" width="200" class="img-fluid" alt="">
+                                <img src="{{inputObj.profilePic}}" height="350" width="200" class="img-fluid" alt="">
                             </div>
 
                             <div class="col-lg-6 col-12 mt-lg-0 mt-1">
                                 <div class="d-flex flex-column h-100 ms-lg-3 mt-lg-0 mt-2">
-                                    <p>I'm {{data.name}} and Im above {{data.age}} years and you can send your emails 
-                                    to <a href="{{data.email}}" class="custom-link mb-2">
-                                        {{data.email}}
+                                    <p>I'm {{inputObj.name}} and Im above {{inputObj.age}} years and you can send your emails 
+                                    to <a href="{{inputObj.email}}" class="custom-link mb-2">
+                                        {{inputObj.email}}
                                         <i class="bi-arrow-right ms-2"></i>
-                                    </a>. I live in the state of {{data.state}}. I like {{data.interest}}. 
-                                    And please send me newsletters. Please reach out to me on my phone number {{data.contact}}.</p>
+                                    </a>. I live in the state of {{inputObj.state}}. I like {{interests}}. 
+                                    And please send me newsletters. Please reach out to me on my phone number {{inputObj.contact}}.</p>
                                    
                                 </div>
                             </div>
@@ -58,8 +58,11 @@
                                         <div class="form-group" >
                                             <label for="editName">Profile Photo </label>&nbsp;&nbsp;&nbsp;
                                             <img [src]="updatedUserData.profilePic" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input type="file" (change)="onselectFile($event)" /><br><br>
-                                            
+                                            <input type="file" [(ngModel)]="updatedUserData.profilePic" id="profilePic" name="profilePic" #profilePic="ngModel" accept="image/*" (change)="onselectFile($event,profilePic)" required /><br><br>
+                                            <div *ngIf="profilePic?.['invalid'] && (profilePic.dirty || profilePic.touched)">
+                                                <div *ngIf="profilePic.errors?.['required']">Profile picture is required</div>
+                                                <div *ngIf="profilePic.errors?.['invalidSize']">Please upload an image with dimensions of 310x325 pixels.</div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="editName">Name:</label>
@@ -169,17 +172,21 @@
                     <div class="tab-pane fade" id="pills-skill" role="tabpanel" aria-labelledby="pills-skill-tab">
                         <div class="row">
                             <div class="col-lg-6 col-12">
-                                <img src="{{data.profilePic}}" height="350" width="200" class="img-fluid" alt="">
+                                <img src="{{inputObj.profilePic}}" height="350" width="200" class="img-fluid" alt="">
                             </div>
 
                             <div class="col-lg-6 col-12">
                                 <div class="d-flex flex-column h-100 ms-lg-4  mt-2">
-                                    <form id="editForm" (submit)="updateUser()">
+                                    <form  (submit)="updateUser()">
                                         <div class="form-group" >
                                             <label for="editName">Profile Photo </label>&nbsp;&nbsp;&nbsp;
                                             <img [src]="updatedUserData.profilePic" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input type="file" (change)="onselectFile($event)" /><br><br>
-                                            
+                                            <img [src]="updatedUserData.profilePic" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input type="file" [(ngModel)]="updatedUserData.profilePic" id="profilePic" name="profilePic" #profilePic="ngModel" accept="image/*" (change)="onselectFile($event,profilePic)" required /><br><br>
+                                            <div *ngIf="profilePic?.['invalid'] && (profilePic.dirty || profilePic.touched)">
+                                                <div *ngIf="profilePic.errors?.['required']">Profile picture is required</div>
+                                                <div *ngIf="profilePic.errors?.['invalidSize']">Please upload an image with dimensions of 310x325 pixels.</div>
+                                            </div>
                                         </div>
                                         
                                         <br>

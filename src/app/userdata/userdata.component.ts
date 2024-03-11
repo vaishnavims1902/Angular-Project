@@ -1,6 +1,6 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { UserdetailService } from '../service/userdetail.service';
 import { NavComponent } from '../nav/nav.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -26,7 +26,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 })
 export class UserdataComponent {
 
-  listarray:any[]=[];
+  //listarray:any[]=[];
 
   states: string[] = [
     'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
@@ -58,7 +58,7 @@ export class UserdataComponent {
       companyAddress1: '',
       companyAddress2: ''
     },
-    interest : [],
+    interest : this.interests,
     state:""
     
   };
@@ -79,10 +79,12 @@ export class UserdataComponent {
     interest :this.interests,
     state:""
   };
-  useremail:any=this.inputObj.email;
+  useremail:any;
 
   constructor(private dataservice:UserdetailService) {
-    this.listarray=this.dataservice.getData();
+    this.inputObj=this.dataservice.getData();
+    this.useremail=this.inputObj.email;
+    this.interests=this.inputObj.interest;
 
     this.filteredinterest = this.interestCtrl.valueChanges.pipe(
       startWith(null),
@@ -140,31 +142,46 @@ export class UserdataComponent {
   
     url="./assets/images/pic.jpg"
   
-    onselectFile(e:any)
+    onselectFile(e:any ,profilePic: NgModel)
     {
 
       debugger;
       const file = e.target.files[0];
-    
-      if (file) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        // Set up event listener for when file reading is done
-        fileReader.onload = (event:any) => {
-          // Once reading is complete, convert the image to base64
-          const base64Image = fileReader.result as string;
-
-          // Update the profilePic property in inputObj with the base64 encoded image
-          this.updatedUserData.profilePic = base64Image;
-          this.url=event.target.result;
-        };
-
+      const img = new Image();
+        img.onload = () => {
+            if (img.width !== 310 || img.height !== 325) {
+                // Set invalid size error
+                profilePic.control.setErrors({ 'invalidSize': true });
+                // Clear the file input field
+                e.target.value = '';
+                // Clear the preview image
+                //this.url="#";
+            } else {
+              
+              if (file) {
+                profilePic.control.setErrors(null);
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                // Set up event listener for when file reading is done
+                fileReader.onload = (event:any) => {
+                  // Once reading is complete, convert the image to base64
+                  const base64Image = fileReader.result as string;
         
-      } else {
-        // Handle the case where no file is selected
-        console.error('No file selected.');
-      }
-    } 
+                  // Update the profilePic property in inputObj with the base64 encoded image
+                  this.inputObj.profilePic = base64Image;
+                  this.url=event.target.result;
+                };
+        
+                
+              } else {
+                // Handle the case where no file is selected
+                console.error('No file selected.');
+              }
+            }
+          };
+          img.src = window.URL.createObjectURL(file);
+        }
+    
 
     // getUser(){
     //   this.dataservice.getItem(this.useremail).subscribe(data => {
@@ -173,12 +190,12 @@ export class UserdataComponent {
     //   });
     // }
     updateUser() {
-      this.dataservice.updateUserOnServer(this.useremail, this.updatedUserData).subscribe(response => {
+      this.dataservice.updateUserOnServer(this.updatedUserData.email, this.updatedUserData).subscribe(response => {
         console.log('User updated successfully:', response);
+  
         // Optionally, update the local user data if needed
-       //this.inputObj = response;
-       
-       
+        this.inputObj = response;
+        this.inputObj.interest = this.interests;
       });
     }
     
