@@ -1,7 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,16 @@ export class UserdetailService {
     this.inputObj=input;
   }
 
-  updateUserOnServer(email: any, userData: any): Observable<any> {
-    return this.http.put<any>(`http://localhost:3000/users/${email}`, userData);
+  updateUserOnServer(id: any, userData: any): Observable<any> {
+    return this.http.put<any>(`http://localhost:3000/users/${id}`, userData);
+  }
+
+  getUserIdByEmail(email: string): Observable<number | null> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map((users) => {
+        const user = users.find((u) => u.email === email);
+        return user ? user.id : null;
+      })
+    );
   }
 }

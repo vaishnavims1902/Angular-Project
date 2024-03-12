@@ -40,7 +40,7 @@
                                     to <a href="{{inputObj.email}}" class="custom-link mb-2">
                                         {{inputObj.email}}
                                         <i class="bi-arrow-right ms-2"></i>
-                                    </a>. I live in the state of {{inputObj.state}}. I like {{interests}}. 
+                                    </a>. I live in the state of {{inputObj.state}}. I like {{inputObj.interest}}. 
                                     And please send me newsletters. Please reach out to me on my phone number {{inputObj.contact}}.</p>
                                    
                                 </div>
@@ -180,7 +180,6 @@
                                     <form  (submit)="updateUser()">
                                         <div class="form-group" >
                                             <label for="editName">Profile Photo </label>&nbsp;&nbsp;&nbsp;
-                                            <img [src]="updatedUserData.profilePic" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <img [src]="updatedUserData.profilePic" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <input type="file" [(ngModel)]="updatedUserData.profilePic" id="profilePic" name="profilePic" #profilePic="ngModel" accept="image/*" (change)="onselectFile($event,profilePic)" required /><br><br>
                                             <div *ngIf="profilePic?.['invalid'] && (profilePic.dirty || profilePic.touched)">

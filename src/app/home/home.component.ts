@@ -79,7 +79,7 @@ export class HomeComponent {
   constructor(private userService: UserdetailService, private router: Router) {
     this.filteredinterest = this.interestCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allinterest.slice())),
+      map((interest: string | null) => (interest ? this._filter(interest) : this.allinterest.slice())),
     );
   }
   add(event: MatChipInputEvent): void {
@@ -144,7 +144,7 @@ export class HomeComponent {
     this.inputObj.age = (event.target as HTMLInputElement).valueAsNumber;
   }
 
-    url="./assets/images/pic.jpg"
+    url="./assets/images/pic.jpg";
     onselectFile(e:any ,profilePic: NgModel)
     {
 

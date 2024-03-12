@@ -81,6 +81,7 @@ export class UserdataComponent {
   };
   useremail:any;
 
+  
   constructor(private dataservice:UserdetailService) {
     this.inputObj=this.dataservice.getData();
     this.useremail=this.inputObj.email;
@@ -91,6 +92,9 @@ export class UserdataComponent {
       map((interest: string | null) => (interest ? this._filter(interest) : this.allinterest.slice())),
     );
   }
+  // onInit(){
+  //   this.inputObj=this.dataservice.getItem(this.useremail);
+  // }
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
@@ -189,14 +193,36 @@ export class UserdataComponent {
     //     this.updatedUserData=data;
     //   });
     // }
-    updateUser() {
-      this.dataservice.updateUserOnServer(this.updatedUserData.email, this.updatedUserData).subscribe(response => {
-        console.log('User updated successfully:', response);
+    // updateUser() {
+    //   this.dataservice.updateUserOnServer(this.inputObj.id, this.updatedUserData).subscribe(response => {
+    //     console.log('User updated successfully:', response);
   
-        // Optionally, update the local user data if needed
-        this.inputObj = response;
-        this.inputObj.interest = this.interests;
-      });
+    //     // Optionally, update the local user data if needed
+    //    // this.inputObj = response;
+    //     this.inputObj.interest = this.interests;
+    //   });
+    // }
+    updateUser(){
+      this.dataservice.getUserIdByEmail(this.useremail).subscribe(
+        (userId) => {
+          if (userId !== null) {
+            //console.log(`User ID for ${userEmail}: ${userId}`);
+            //alert(`User ID for ${userEmail}: ${userId}`);
+            this.dataservice.updateUserOnServer(userId,this.updatedUserData).subscribe(response =>{
+              alert("Data Updated Successfully!");
+              this.inputObj = response;
+              //this.inputObj.interest = this.interests;
+              console.log(response);
+            })
+          } else {
+            //console.log(`User with email ${userEmail} not found`);
+            alert(`User with email ${this.useremail} not found`);
+          }
+        },
+        (error) => {
+          alert("error");
+        }
+      );
     }
     
   }
