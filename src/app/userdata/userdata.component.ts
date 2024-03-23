@@ -28,13 +28,76 @@ export class UserdataComponent {
 
   //listarray:any[]=[];
 
-  states: string[] = [
-    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
+  countries = ['Albania','Algeria','Brazil','Bulgaria','Canada','Denmark','India','Russia','Singapore', 'USA']; 
+  statesMap: { [key: string]: string[] } = {
+    'India': ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana',
     'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
     'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana',
     'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh',
-    'Dadra and Nagar Haveli and Daman and Diu', 'Lakshadweep', 'Delhi', 'Puducherry'
-  ];
+    'Dadra and Nagar Haveli and Daman and Diu', 'Lakshadweep', 'Delhi', 'Puducherry'], 
+    
+    'USA': ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+    'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+    'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+
+    'Albania': ['Berat', 'Dibër', 'Durrës', 'Elbasan', 'Fier', 'Gjirokastër', 'Korçë', 'Kukës', 'Lezhë', 'Shkodër', 'Tiranë', 'Vlorë'],
+
+    'Algeria': ['Adrar', 'Aïn Defla', 'Aïn Témouchent', 'Algiers', 'Annaba', 'Batna', 'Béchar', 'Béjaïa', 'Biskra', 'Blida', 'Bordj Bou Arréridj', 
+        'Bouira', 'Boumerdès', 'Chlef', 'Constantine', 'Djelfa', 'El Bayadh', 'El Oued', 'El Tarf', 'Ghardaïa', 'Guelma', 
+        'Illizi', 'Jijel', 'Khenchela', 'Laghouat', 'M Sila', 'Mascara', 'Médéa', 'Mila', 'Mostaganem', 'Naâma', 
+        'Oran', 'Ouargla', 'Oum El Bouaghi', 'Relizane', 'Saïda', 'Sétif', 'Sidi Bel Abbès', 'Skikda', 
+        'Souk Ahras', 'Tamanghasset', 'Tébessa', 'Tiaret', 'Tindouf', 'Tipaza', 'Tissemsilt', 'Tizi Ouzou', 
+        'Tlemcen'],
+
+    'Brazil': [
+        'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso',
+        'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte',
+        'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins'
+        ],
+    'Bulgaria': [
+          'Blagoevgrad', 'Burgas', 'Dobrich', 'Gabrovo', 'Haskovo', 'Kardzhali', 'Kyustendil', 'Lovech', 'Montana',
+          'Pazardzhik', 'Pernik', 'Pleven', 'Plovdiv', 'Razgrad', 'Ruse', 'Shumen', 'Silistra', 'Sliven', 'Smolyan',
+          'Sofia', 'Sofia-Grad', 'Stara Zagora', 'Targovishte', 'Varna', 'Veliko Tarnovo', 'Vidin', 'Vratsa', 'Yambol'
+        ],
+
+    'Canada': [
+       'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+        'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'
+        ],
+
+    'Denmark': [
+          'Capital Region of Denmark', 'Central Denmark Region', 'North Denmark Region', 'Region Zealand', 'Region of Southern Denmark'
+        ],
+    'Singapore': [
+          'Ang Mo Kio', 'Bedok', 'Bishan', 'Boon Lay', 'Bukit Batok', 'Bukit Merah', 'Bukit Panjang', 'Bukit Timah', 'Central Water Catchment',
+          'Changi', 'Changi Bay', 'Choa Chu Kang', 'Clementi', 'Downtown Core', 'Geylang', 'Hougang', 'Jurong East', 'Jurong West', 'Kallang',
+          'Lim Chu Kang', 'Mandai', 'Marina East', 'Marina South', 'Marine Parade', 'Museum', 'Newton', 'North-Eastern Islands', 'Novena', 'Orchard',
+          'Outram', 'Pasir Ris', 'Paya Lebar', 'Pioneer', 'Punggol', 'Queenstown', 'River Valley', 'Rochor', 'Seletar', 'Sembawang', 'Sengkang',
+          'Serangoon', 'Simpang', 'Singapore River', 'Southern Islands', 'Straits View', 'Sungei Kadut', 'Tampines', 'Tanglin', 'Tengah', 'Toa Payoh',
+          'Tuas', 'Western Islands', 'Western Water Catchment', 'Woodlands', 'Yishun'
+        ],
+    'Russia': [
+          'Republic of Adygea', 'Altai Krai', 'Altai Republic', 'Amur Oblast', 'Arkhangelsk Oblast', 'Astrakhan Oblast',
+          'Republic of Bashkortostan', 'Belgorod Oblast', 'Bryansk Oblast', 'Republic of Buryatia', 'Chechen Republic', 'Chelyabinsk Oblast',
+          'Chukotka Autonomous Okrug', 'Chuvash Republic', 'Republic of Crimea', 'Dagestan Republic', 'Republic of Ingushetia',
+          'Irkutsk Oblast', 'Ivanovo Oblast', 'Jewish Autonomous Oblast', 'Kabardino-Balkar Republic', 'Kaliningrad Oblast',
+          'Kalmykia Republic', 'Kaluga Oblast', 'Kamchatka Krai', 'Karachay-Cherkess Republic', 'Republic of Karelia', 'Kemerovo Oblast',
+          'Khabarovsk Krai', 'Republic of Khakassia', 'Khanty-Mansi Autonomous Okrug', 'Kirov Oblast', 'Komi Republic', 'Kostroma Oblast',
+          'Krasnodar Krai', 'Krasnoyarsk Krai', 'Kurgan Oblast', 'Kursk Oblast', 'Leningrad Oblast', 'Lipetsk Oblast', 'Magadan Oblast',
+          'Mari El Republic', 'Republic of Mordovia', 'Moscow', 'Moscow Oblast', 'Murmansk Oblast', 'Nenets Autonomous Okrug',
+          'Nizhny Novgorod Oblast', 'North Ossetia–Alania Republic', 'Novgorod Oblast', 'Novosibirsk Oblast', 'Omsk Oblast', 'Orenburg Oblast',
+          'Oryol Oblast', 'Penza Oblast', 'Perm Krai', 'Primorsky Krai', 'Pskov Oblast', 'Rostov Oblast', 'Ryazan Oblast',
+          'Saint Petersburg', 'Sakha (Yakutia) Republic', 'Sakhalin Oblast', 'Samara Oblast', 'Saratov Oblast', 'Republic of North Macedonia',
+          'Sevastopol', 'Smolensk Oblast', 'Stavropol Krai', 'Sverdlovsk Oblast', 'Tambov Oblast', 'Republic of Tatarstan', 'Tomsk Oblast',
+          'Tuva Republic', 'Tula Oblast', 'Tver Oblast', 'Tyumen Oblast', 'Udmurt Republic', 'Ulyanovsk Oblast', 'Vladimir Oblast',
+          'Volgograd Oblast', 'Vologda Oblast', 'Voronezh Oblast', 'Yamalo-Nenets Autonomous Okrug', 'Yaroslavl Oblast', 'Zabaykalsky Krai'
+        ]
+      
+  };
   separatorKeysCodes: number[] = [ENTER, COMMA];
   interestCtrl = new FormControl('');
   filteredinterest: Observable<string[]>;
@@ -59,7 +122,8 @@ export class UserdataComponent {
       companyAddress2: ''
     },
     interest : this.interests,
-    state:""
+    state:"",
+    country:""
     
   };
   updatedUserData:any={
@@ -91,6 +155,14 @@ export class UserdataComponent {
       startWith(null),
       map((interest: string | null) => (interest ? this._filter(interest) : this.allinterest.slice())),
     );
+  }
+  getStates(): string[] {
+    return this.statesMap[this.inputObj.country] || [];
+  }
+  
+  updateStates(): void {
+    // Reset the state when the country changes
+    this.inputObj.state = '';
   }
   // onInit(){
   //   this.inputObj=this.dataservice.getItem(this.useremail);

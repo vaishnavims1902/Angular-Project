@@ -43,7 +43,7 @@
             </div>
             
             <div class="modal-body">
-                <form id="editForm" >
+                <form id="editForm" #editForm="ngForm">
                     <div class="form-group">
                         <label for="editName">Profile Photo </label>&nbsp;&nbsp;&nbsp;
                         <img id="previewImage" [src]="url" height="100"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,7 +105,7 @@
                         <label for="editContact">Contact:</label>
                         <input type="text" [(ngModel)]="inputObj.contact" name="contact" class="form-control" id="contact" placeholder="Enter your Contact" #mobile="ngModel" required [pattern]="phonePattern">
                         <div class="validation-error" *ngIf="mobile.touched || mobile.dirty">
-                            <div *ngIf="mobile.errors?.['required']">Mobile Number is required</div>
+                            <div *ngIf="editForm.controls['mobile'].errors?.['required']">Mobile Number is required</div>
                             <div *ngIf="mobile.errors?.['pattern']">Please, Enter 10 digit Mobile Number.</div>
                         </div>
                     </div>
@@ -114,10 +114,17 @@
                         <input type="text" [(ngModel)]="inputObj.address" name="address" class="form-control" id="address" placeholder="Enter your Address" required>
                     </div> -->
                     <div class="form-group">
+                      <label for="country">Country:</label>
+                      <select [(ngModel)]="inputObj.country" name="country" class="form-control" id="country" (change)="updateStates()">
+                        <option value="" disabled selected>Select country</option>
+                        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                         <label for="state">State:</label>
                         <select [(ngModel)]="inputObj.state" name="state" class="form-control" id="state">
                           <option value="" disabled selected>Select state</option>
-                          <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                          <option *ngFor="let state of getStates()" [value]="state">{{ state }}</option>
                         </select>
                       </div>
                     <div class="form-group">
@@ -181,8 +188,10 @@
             
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" (click)="submitForm()" data-bs-dismiss="modal">Register</button>
+              <button type="submit" class="btn btn-primary" (click)="submitForm()" [disabled]="editForm.invalid"  data-bs-dismiss="modal">Register</button>
+              
             </div>
+            <div *ngIf="editForm.invalid" style="color: red;">Fill all fields</div>
           </form>
         </div>
           </div>
@@ -198,7 +207,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editForm" >
+                <form id="editForm2" >
                     
                     <div class="form-group">
                         <label for="editEmail">Email:</label>
